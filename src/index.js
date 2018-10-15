@@ -1,16 +1,20 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { render } from 'react-dom';
 import './index.css';
 import Game from './components/Game';
-
+import { Provider } from 'react-redux'
 import store from "./store/index";
 import { addArticle } from "./actions/index";
+import GameContext from './components/GameContext';
 window.store = store;
 window.addArticle = addArticle;
 
 // ========================================
 
-ReactDOM.render(
-  <Game />,
+render(
+  <Provider store={store}>
+    <GameContext/>
+  </Provider>
+  ,
   document.getElementById('root')
 );

@@ -1,6 +1,10 @@
 import { ADD_ARTICLE } from "../constants/action-types";
 const initialState = {
-  articles: []
+  history: [{
+    squares: [null,null,'X','O','X','O',null,null,null]//Array(9).fill(null)
+  }],
+  stepNumber: 0,
+  xIsNext: true,
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -11,5 +15,9 @@ const rootReducer = (state = initialState, action) => {
       return state;
   }
 };
+
+const boxPlayed = (history, action) => {
+
+}
 
 export default rootReducer;

@@ -4,13 +4,13 @@ import Board from './Board';
 class Game extends Component {
   constructor(props){
     super(props);
-    this.state = {
-      history: [{
-        squares: Array(9).fill(null)
-      }],
-      stepNumber: 0,
-      xIsNext: true,
-    };
+    // this.state = {
+    //   history: [{
+    //     squares: Array(9).fill(null)
+    //   }],
+    //   stepNumber: 0,
+    //   xIsNext: true,
+    // };
   }
 
   calculateWinner(squares) {
@@ -35,19 +35,19 @@ class Game extends Component {
   }
   
   handleClick(i) {
-    const history = this.state.history.slice(0, this.state.stepNumber + 1);
+    const history = this.props.history.slice(0, this.props.stepNumber + 1);
     const current = history[history.length - 1];
     const squares = current.squares.slice();
     if (this.calculateWinner(squares) || squares[i]) {
       return;
     }
-    squares[i] = this.state.xIsNext ? 'X' : 'O';
+    squares[i] = this.props.xIsNext ? 'X' : 'O';
     this.setState({
       history: history.concat([{
         squares: squares
       }]),
       stepNumber: history.length,
-      xIsNext: !this.state.xIsNext,
+      xIsNext: !this.props.xIsNext,
     });
   }
 
@@ -59,8 +59,8 @@ class Game extends Component {
   }
 
   render() {
-    const history = this.state.history;
-    const current = history[this.state.stepNumber];
+    const history = this.props.history;
+    const current = history[this.props.stepNumber];
     const winner = this.calculateWinner(current.squares);
     
     const moves = history.map((step, move) => {
@@ -78,7 +78,7 @@ class Game extends Component {
     if (winner) {
       status = 'Winner: ' + winner;
     } else {
-      status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
+      status = 'Next player: ' + (this.props.xIsNext ? 'X' : 'O');
     }
 
     return (
