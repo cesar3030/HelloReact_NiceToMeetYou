@@ -7,6 +7,7 @@ const initialState = {
   }],
   stepNumber: 0,
   xIsNext: true,
+  winner: null,
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -21,15 +22,14 @@ const rootReducer = (state = initialState, action) => {
 };
 
 const boxClic = (state, boxId) => {
-  alert();
   const history = state.history.slice(0, state.stepNumber + 1);
   const current = history[history.length - 1];
   const squares = current.squares.slice();
 
-  if (calculateWinner(squares) || squares[boxId]) {
-    return;
+  if (state.winner || squares[boxId]) {
+    return state;
   }
-  
+
   squares[boxId] = state.xIsNext ? 'X' : 'O';
 
   return Object.assign({...state,
@@ -38,6 +38,7 @@ const boxClic = (state, boxId) => {
     }]),
     stepNumber: history.length,
     xIsNext: !state.xIsNext,
+    winner: calculateWinner(squares),
   });
 };
 

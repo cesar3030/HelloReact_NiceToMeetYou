@@ -13,9 +13,7 @@ class Game extends Component {
   render() {
     const history = this.props.history;
     const current = history[this.props.stepNumber];
-    //TODO: get the value from props
-    const winner = false //this.calculateWinner(current.squares);
-    
+    const winner = this.props.winner;
     const moves = history.map((step, move) => {
       const desc = move ?
         'Go to move #' + move :
