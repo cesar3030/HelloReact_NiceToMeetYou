@@ -1,6 +1,6 @@
 import Game from './Game';
 import { connect } from 'react-redux';
-import { boxClick } from '../actions/index'
+import { boxClick, jumpToMove } from '../actions/index'
 
 const mapStateToProps = state => {
   return {
@@ -15,6 +15,9 @@ const mapDispatchToProps = dispatch => {
   return {
     onBoxClick: id => {
       dispatch(boxClick(id));
+    },
+    onJumpToMoveClick: num => {
+      dispatch(jumpToMove(num));
     }
   }
 }

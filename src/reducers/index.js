@@ -1,9 +1,8 @@
-import { ADD_ARTICLE } from "../constants/action-types";
-import { BOX_CLICK } from "../constants/action-types";
+import { ADD_ARTICLE, BOX_CLICK, JUMP_TO_MOVE } from "../constants/action-types";
 
 const initialState = {
   history: [{
-    squares: [null,null,'X','O','X','O',null,null,null]//Array(9).fill(null)
+    squares: Array(9).fill(null),//[null,null,'X','O','X','O',null,null,null]//
   }],
   stepNumber: 0,
   xIsNext: true,
@@ -15,13 +14,23 @@ const rootReducer = (state = initialState, action) => {
     case ADD_ARTICLE:
       return { ...state, articles: [...state.articles, action.payload] };
     case BOX_CLICK:
-      return boxClic(state, action.payload);
+      return boxClick(state, action.payload);
+    case JUMP_TO_MOVE:
+      return jumpToMoveClick(state, action.payload);
     default:
       return state;
   }
 };
 
-const boxClic = (state, boxId) => {
+const jumpToMoveClick = (state, moveNum) => {
+  console.log(moveNum)
+  state = {...state, stepNumber: moveNum, xIsNext: moveNum%2 === 0};
+  const history = state.history.slice(0, state.stepNumber + 1);
+  const current = history[history.length - 1];
+  return {...state, winner: calculateWinner(current)};
+};
+
+const boxClick = (state, boxId) => {
   const history = state.history.slice(0, state.stepNumber + 1);
   const current = history[history.length - 1];
   const squares = current.squares.slice();

@@ -3,13 +3,6 @@ import Board from './Board';
 
 class Game extends Component {
 
-  jumpTo(step) {
-    this.setState({
-      stepNumber: step,
-      xIsNext: (step % 2) === 0,
-    });
-  }
-
   render() {
     const history = this.props.history;
     const current = history[this.props.stepNumber];
@@ -20,7 +13,7 @@ class Game extends Component {
         'Go to game start';
       return (
         <li key={move}>
-          <button onClick={() => this.jumpTo(move)}>{desc}</button>
+          <button onClick={() => this.props.onJumpToMoveClick(move)}>{desc}</button>
         </li>
       );
     });
